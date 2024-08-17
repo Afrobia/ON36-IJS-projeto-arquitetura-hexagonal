@@ -5,7 +5,12 @@ GET http://localhost:3000
 
 ### Cadastrar aluno
 POST  http://localhost:3000/estudantes
+Content-Type: application/json
 
 {
-    "nome": "John"
+    "nome": "John",
+    "endereco": "Tao, tao distante",
+    "telefone": "81213168416",
+    "email": "alguma@gmail.com",
+    "idade": 15
 }
