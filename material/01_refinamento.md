@@ -20,7 +20,7 @@ Quais os requisitos prara ser Professora?
 - o aluno só pode se matricular em um curso disponível
 - o aluno pode ter vários curso, mas que não tenham conflito de horários
 - não existe restrição local;
-- uma pssoa não pode ser alino de uma turma em que é professora
+- uma pessoa não pode ser alino de uma turma em que é professora
 
 -O numero máximo de estudante por turma e o número mínimo é um
 -não tem banco de dados
