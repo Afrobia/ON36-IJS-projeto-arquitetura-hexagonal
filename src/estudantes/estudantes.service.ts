@@ -5,6 +5,7 @@ import { UpdateEstudanteDto } from './dto/update-estudante.dto';
 @Injectable()
 export class EstudantesService {
   create(createEstudanteDto: CreateEstudanteDto) {
+    console.log(createEstudanteDto)
     return 'This action adds a new estudante';
   }
 

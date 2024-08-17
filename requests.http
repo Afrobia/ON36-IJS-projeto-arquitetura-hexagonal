@@ -12,5 +12,6 @@ Content-Type: application/json
     "endereco": "Tao, tao distante",
     "telefone": "81213168416",
     "email": "alguma@gmail.com",
-    "idade": 15
+    "idade": 16,
+    "xuxu": "xuxu"
 }

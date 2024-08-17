@@ -4,5 +4,4 @@ export class Estudante {
   telefone: string;
   cursos: string[];
 
-
 }
