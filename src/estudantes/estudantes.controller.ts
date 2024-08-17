@@ -7,8 +7,8 @@ export class EstudantesController {
   constructor(private readonly estudantesService: EstudantesService) {}
 
   @Post()
-  create(@Body() createEstudanteDto: CreateEstudanteDto) {
-    return this.estudantesService.create(createEstudanteDto);
+  cadastrar(@Body() createEstudanteDto: CreateEstudanteDto) {
+    return this.estudantesService.cadastrar(createEstudanteDto);
   }
 
 }
