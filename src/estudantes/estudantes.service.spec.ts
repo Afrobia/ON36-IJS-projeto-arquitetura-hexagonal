@@ -3,6 +3,7 @@ import { EstudantesService } from './estudantes.service';
 import { EstudantesRepository } from './repository/estudantes.repository';
 import { CreateEstudanteDto } from './dto/create-estudante.dto';
 import { Estudante } from './entities/estudante.entity';
+import { NotFoundException } from '@nestjs/common';
 
 describe('EstudantesService', () => {
   let service: EstudantesService;
@@ -19,19 +20,38 @@ describe('EstudantesService', () => {
     expect(service).toBeDefined();
   });
 
-  test("deve receber um DreateUseDto e criar um estudante", () =>{
-
+  test('deve receber um CreateEstudanteDto e criar um estudante', () => {
     const createEstudanteDto: CreateEstudanteDto = {
-      nome: "Baby",
-      endereco: "tão, tão distante",
-      telefone: "849658963256",
-      email: "algumacois@gmail.com",
-      idade: 18
+      nome: 'Baby',
+      endereco: 'tão, tão distante',
+      telefone: '849658963256',
+      email: 'algumacois@gmail.com',
+      idade: 18,
+    };
+
+    const retornado = service.cadastrar(createEstudanteDto);
+
+    if (retornado instanceof Estudante) {
+      expect(retornado.nome).toBe(createEstudanteDto.nome);
+      expect(retornado.endereco).toBe(createEstudanteDto.endereco);
+      expect(retornado.telefone).toBe(createEstudanteDto.telefone);
+      expect(retornado.email).toBe(createEstudanteDto.email);
     }
+  });
 
-    const retornado = service.cadastrar(createEstudanteDto)
+  test('não deve cadastrar dois estudantes com o mesmo email', () => {
+    const createEstudanteDto: CreateEstudanteDto = {
+      nome: 'Baby',
+      endereco: 'tão, tão distante',
+      telefone: '849658963256',
+      email: 'algumacois@gmail.com',
+      idade: 18,
+    };
 
-  expect(retornado).toBeInstanceOf(Estudante)
+    const retornado = service.cadastrar(createEstudanteDto);
 
-  })
+    if (retornado instanceof Estudante) {
+      expect(()=> service.cadastrar(createEstudanteDto)).toThrow(NotFoundException);
+    }
+  });
 });
