@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateEstudanteDto } from './dto/create-estudante.dto';
 import { Estudante } from './entities/estudante.entity';
 import { EstudantesRepository } from './repository/estudantes.repository';
@@ -7,7 +7,8 @@ import { EstudantesRepository } from './repository/estudantes.repository';
 export class EstudantesService {
   constructor(private readonly estudantesRepository: EstudantesRepository) {}
 
-  cadastrar(createEstudanteDto: CreateEstudanteDto) {
+  cadastrar(createEstudanteDto: CreateEstudanteDto): Estudante {
+    this.validarCadastro(createEstudanteDto.email);
     //criar um novo aluno
     const estudante = new Estudante(
       createEstudanteDto.nome,
@@ -15,10 +16,21 @@ export class EstudantesService {
       createEstudanteDto.telefone,
       createEstudanteDto.email,
     );
-    //instanciar
-    this.estudantesRepository.salvarEstudantes(estudante);
-    return 'This action adds a new estudante';
+
+    return this.estudantesRepository.salvarEstudantes(estudante);
   }
-   //verificar se tem outro aluno com o mesmo email
-   //verificar a lista de alunos e verifica se tem o mesmo email, vou lancar uma execeção caso exista
+
+  findByEmail(email: string): Estudante {
+    return this.estudantesRepository.findByEmail(email)
+  }
+
+  validarCadastro(email: string) {
+    const estudante = this.findByEmail(email);
+
+    if (estudante) {
+      throw new NotFoundException('Estudante já cadastrado');
+    }
+
+  }
+
 }
