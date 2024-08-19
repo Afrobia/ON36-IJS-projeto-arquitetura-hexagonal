@@ -7,9 +7,10 @@ import { randomUUID } from 'crypto';
 export class EstudantesRepository {
     private readonly estudantes: Estudante[] = []
     
-    salvarEstudantes(estudante: Estudante):void {
+    salvarEstudantes(estudante: Estudante):Estudante {
         estudante.id = randomUUID()
         this.estudantes.push(estudante)
-        console.log(`Salvando aluno ${estudante.nome}`) 
+        console.log(`Salvando aluno ${estudante.nome}`);
+        return estudante
     }
 }
