@@ -32,7 +32,5 @@ export class EstudantesService {
     }
 
   }
-  //verificar se tem outro aluno com o mesmo email
-  // teste unitário
-  //verificar a lista de alunos e verifica se tem o mesmo email, vou lancar uma execeção caso exista
+
 }
