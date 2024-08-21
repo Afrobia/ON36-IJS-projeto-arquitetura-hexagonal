@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EstudantesService } from './estudantes.service';
-import { EstudantesRepository } from './repository/estudantes.repository';
-import { CreateEstudanteDto } from './dto/create-estudante.dto';
-import { Estudante } from './entities/estudante.entity';
+import { EstudantesRepository } from '../repository/estudantes.repository';
+import { CreateEstudanteDto } from '../presenter/http/dto/create-estudante.dto';
+import { Estudante } from '../domain/estudante';
 import { NotFoundException } from '@nestjs/common';
 
 describe('EstudantesService', () => {

@@ -1,4 +1,4 @@
-import { Pessoa } from "./pessoa.entity";
+import { Pessoa } from "../entities/pessoa.entity";
 
 export class Estudante implements Pessoa{
   id: string;
