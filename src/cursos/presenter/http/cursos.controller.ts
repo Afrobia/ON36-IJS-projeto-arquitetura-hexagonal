@@ -15,7 +15,7 @@ export class CursosController {
   }
 
   @Get()
-  findAll() {
+  listarCursos() {
     return this.cursosService.listarCursos();
   }
 }
