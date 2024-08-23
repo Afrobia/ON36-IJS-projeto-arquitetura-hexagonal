@@ -5,5 +5,5 @@ export class Curso {
   titulo: string;
   descricao: string;
   professores: string[];
-  alunos: Estudante[];
+  estudantes: Estudante[] ;
 }

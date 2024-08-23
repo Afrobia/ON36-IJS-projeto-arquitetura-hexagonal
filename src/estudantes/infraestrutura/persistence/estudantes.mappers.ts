@@ -1,6 +1,7 @@
 import { Estudante } from '../../domain/estudante';
 import { EstudanteEntity } from './estudantes.entity';
 
+
 export class EstudanteMapper {
   static paraDominio(estudanteEntity: EstudanteEntity): Estudante {
     const model = new Estudante(

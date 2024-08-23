@@ -1,14 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCursoDto } from '../presenter/http/dto/create-curso.dto';
+import { CreateCursosCommand } from './commands/create-cursos-command';
+import { Curso } from '../domain/curso';
+import { CursosFactory } from '../domain/factory/curso-factory';
 
 
 @Injectable()
 export class CursosService {
-  create(createCursoDto: CreateCursoDto) {
-    return 'This action adds a new curso';
+  constructor(private readonly cursoFactory: CursosFactory){}
+
+  adicionar(createCurso: CreateCursosCommand): Curso {
+    const curso = this.cursoFactory.criar(createCurso.titulo, createCurso.descricao )
+    return curso;
   }
 
-  findAll() {
+  listarCursos() {
     return `This action returns all cursos`;
   }
 
