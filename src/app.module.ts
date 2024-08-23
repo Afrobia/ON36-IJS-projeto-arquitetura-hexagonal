@@ -5,9 +5,10 @@ import { CoreModule } from './estudantes/core/core.module';
 import { ApplicationBootstrapOptions } from './estudantes/common/application-bootstrap-options.interface';
 import { EstudantesModule } from './estudantes/application/estudantes.module';
 import { EstudanteInfraestruturaModule } from './estudantes/infraestrutura/estudante-infraestrutura';
+import { CursosModule } from './cursos/application/cursos.module';
 
 @Module({
-  imports: [CoreModule],
+  imports: [CoreModule, CursosModule],
   controllers: [AppController],
   providers: [AppService],
 })
