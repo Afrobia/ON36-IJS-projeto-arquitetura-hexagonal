@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsString, Min } from "class-validator";
+import { IsEmail, IsNotEmpty, IsNumber, IsPositive, IsString} from "class-validator";
 
 export class CreateEstudanteDto {
 
@@ -19,7 +19,7 @@ export class CreateEstudanteDto {
   email: string
 
   @IsNotEmpty()
+  @IsPositive()
   @IsNumber()
-  @Min(16)
-  idade: number;
+  anoNascimento: number;
 }

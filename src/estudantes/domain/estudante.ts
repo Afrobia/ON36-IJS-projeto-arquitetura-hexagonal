@@ -1,18 +1,17 @@
-import { Pessoa } from "../entities/pessoa.entity";
-
-export class Estudante implements Pessoa{
+export class Estudante {
   id: string;
   nome: string;
   endereco: string;
   telefone: string;
-  email: string
-  cursos: string[]
+  email: string;
+  cursos: string[];
 
-  constructor(nome:string, endereco:string, telefone: string, email:string){
-    this.nome = nome
-    this.endereco = endereco
-    this.telefone = telefone
-    this.email = email
-    this.cursos = []
-  }
+  constructor(
+    id: string,
+    nome: string,
+    endereco: string,
+    telefone: string,
+    email: string,
+    cursos: string[],
+  ) {}
 }

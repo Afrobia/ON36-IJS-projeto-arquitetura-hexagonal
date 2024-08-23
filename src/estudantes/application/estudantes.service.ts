@@ -1,48 +1,48 @@
-import {
-  ConflictException,
-  ForbiddenException,
-} from '@nestjs/common';
+import { ConflictException, ForbiddenException } from '@nestjs/common';
 import { Estudante } from '../domain/estudante';
 import { CreateEstudanteCommand } from './commands/create-estudante-command';
-import { EstudanteRepositoryAdapter } from '../infraestrutura/persitence/estudantes.repository';
+import { EstudanteRepository } from './port/estudantes.repository';
+import { EstudanteFactory } from '../domain/factory/factory';
 
 export class EstudantesService {
   constructor(
-    private readonly estudantesRepository: EstudanteRepositoryAdapter,
+    private readonly estudantesRepository: EstudanteRepository,
+    private readonly estudanteFactory: EstudanteFactory
   ) {}
 
-  cadastrar(createEstudante: CreateEstudanteCommand): Promise<Estudante> {
-    this.validarIdade(createEstudante.idade);
+  async cadastrar(createEstudanteCommand: CreateEstudanteCommand): Promise<Estudante> {
+    this.validarIdadeMinima(createEstudanteCommand);
+    this.validarCadastroByEmail(createEstudanteCommand)
 
-    const estudante = new Estudante(
-      createEstudante.nome,
-      createEstudante.endereco,
-      createEstudante.telefone,
-      createEstudante.email,
+    const estudante =this.estudanteFactory.criar(
+      createEstudanteCommand.nome,
+      createEstudanteCommand.endereco,
+      createEstudanteCommand.telefone,
+      createEstudanteCommand.email,
     );
 
-    this.validarCadastroByEmail(estudante.email);
-    return this.estudantesRepository.criar(estudante);
+    return await this.estudantesRepository.salvar(estudante);
   }
 
-  findByEmail(email: string): Promise<Estudante> {
-    return this.estudantesRepository.buscarPorEmail(email);
-  }
 
-  validarIdade(ano: number) {
+  validarIdadeMinima(createEstudanteCommand: CreateEstudanteCommand) {
     const anoAtual = new Date().getFullYear();
-    const idade = anoAtual - ano;
+    const idade = anoAtual - createEstudanteCommand.anoNascimento;
     const IDADE_MIN_CADASTRO = 16;
     if (idade <= IDADE_MIN_CADASTRO) {
       throw new ForbiddenException('A idade mínima para cadastro é 16 anos.');
     }
   }
 
-  validarCadastroByEmail(email: string) {
-    const estudanteExistente = this.findByEmail(email);
+  validarCadastroByEmail(createEstudanteCommand:CreateEstudanteCommand) {
+    const estudanteExistente = this.estudantesRepository.buscarPorEmail(createEstudanteCommand.email)
 
     if (estudanteExistente) {
-      throw new ConflictException('Estudante já cadastrado');
+      throw new ConflictException('Estudante já cadastrado com esse email');
     }
+  }
+
+  listarEstudante(){
+    return this.estudantesRepository.listar()
   }
 }

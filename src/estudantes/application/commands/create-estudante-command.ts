@@ -4,6 +4,6 @@ export class CreateEstudanteCommand {
     public readonly endereco: string,
     public readonly telefone: string,
     public readonly email: string,
-    public readonly idade: number,
+    public readonly anoNascimento: number,
   ) {}
 }
