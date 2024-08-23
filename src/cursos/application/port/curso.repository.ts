@@ -1,4 +1,4 @@
-import { Curso } from 'src/cursos/domain/curso';
+import { Curso } from '../../../cursos/domain/curso';
 
 export abstract class CursoRepository {
   abstract salvarCurso(curso: Curso): Promise<Curso>;
