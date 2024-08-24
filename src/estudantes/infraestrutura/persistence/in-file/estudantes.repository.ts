@@ -8,14 +8,14 @@ export class InFileEstudanteRepository implements EstudanteRepository {
   private readonly estudantes = new Map<string, EstudanteEntity>();
 
   async salvar(estudante: Estudante): Promise<Estudante> {
-    return
+    throw new Error('Method not implemented.');
   }
 
   async listar(): Promise<Estudante[]> {
-    return
+    throw new Error('Method not implemented.');
   }
 
   async buscarPorEmail(email: string): Promise<Estudante> {
-    return
+    throw new Error('Method not implemented.');
   }
 }

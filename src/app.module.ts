@@ -8,11 +8,15 @@ import { EstudanteInfraestruturaModule } from './estudantes/infraestrutura/estud
 import { CursosModule } from './cursos/application/cursos.module';
 import { CursoCoreModule } from './cursos/core/core.module';
 import { CursoInfraestruturaModule } from './cursos/infraestrutura/curso-infraestrutura';
+import { GestaoModule } from './gestao/application/gestao.module';
+
+
 
 @Module({
-  imports: [CursoCoreModule, EstudanteCoreModule, CursosModule],
+  imports: [CursoCoreModule, EstudanteCoreModule, CursosModule, GestaoModule],
   controllers: [AppController],
   providers: [AppService],
+  exports:[]
 })
 export class AppModule {
   static register(options: ApplicationBootstrapOptions) {

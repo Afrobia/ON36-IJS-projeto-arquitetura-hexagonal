@@ -1,4 +1,4 @@
-import { ConflictException, ForbiddenException } from '@nestjs/common';
+import { ConflictException, ForbiddenException, NotFoundException } from '@nestjs/common';
 import { Estudante } from '../domain/estudante';
 import { CreateEstudanteCommand } from './commands/create-estudante-command';
 import { EstudanteRepository } from './port/estudantes.repository';
@@ -48,4 +48,14 @@ export class EstudantesService {
   listarEstudante() {
     return this.estudantesRepository.listar();
   }
+
+  buscarEstudantePorEmail(email: string): Promise<Estudante>{
+    const estudante = this.estudantesRepository.buscarPorEmail(email)
+    
+    if(!estudante){
+      throw new NotFoundException("Estudante não cadastrato")
+    }
+    return estudante
+  }
+
 }
