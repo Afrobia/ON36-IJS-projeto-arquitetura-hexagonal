@@ -23,6 +23,7 @@ export class EstudanteMapper {
     entity.telefone = estudante.telefone;
     entity.email = estudante.email;
     entity.cursos = estudante.cursos;
+    
     return entity;
   }
 }

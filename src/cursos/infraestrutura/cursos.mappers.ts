@@ -1,4 +1,3 @@
-import { Estudante } from 'src/estudantes/domain/estudante';
 import { CursoEntity } from './persistence/cursos-entity';
 import { Curso } from '../domain/curso';
 

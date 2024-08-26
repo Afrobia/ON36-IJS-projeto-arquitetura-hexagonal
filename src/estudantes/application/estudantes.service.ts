@@ -1,4 +1,7 @@
-import { ConflictException, ForbiddenException, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { Estudante } from '../domain/estudante';
 import { CreateEstudanteCommand } from './commands/create-estudante-command';
 import { EstudanteRepository } from './port/estudantes.repository';
@@ -12,15 +15,17 @@ export class EstudantesService {
 
   async cadastrar(
     createEstudanteCommand: CreateEstudanteCommand,
-  ): Promise<Estudante> {
+  ): Promise<Estudante>{
     this.validarIdadeMinima(createEstudanteCommand);
     this.validarCadastroByEmail(createEstudanteCommand);
+    
+    const { nome, endereco, telefone, email } = createEstudanteCommand;
 
     const estudante = this.estudanteFactory.criar(
-      createEstudanteCommand.nome,
-      createEstudanteCommand.endereco,
-      createEstudanteCommand.telefone,
-      createEstudanteCommand.email,
+      nome,
+      endereco,
+      telefone,
+      email,
     );
 
     return await this.estudantesRepository.salvar(estudante);
@@ -35,8 +40,8 @@ export class EstudantesService {
     }
   }
 
-  validarCadastroByEmail(createEstudanteCommand: CreateEstudanteCommand) {
-    const estudanteExistente = this.estudantesRepository.buscarPorEmail(
+  async validarCadastroByEmail(createEstudanteCommand: CreateEstudanteCommand) {
+    const estudanteExistente = await this.buscarEstudantePorEmail(
       createEstudanteCommand.email,
     );
 
@@ -49,13 +54,7 @@ export class EstudantesService {
     return this.estudantesRepository.listar();
   }
 
-  buscarEstudantePorEmail(email: string): Promise<Estudante>{
-    const estudante = this.estudantesRepository.buscarPorEmail(email)
-    
-    if(!estudante){
-      throw new NotFoundException("Estudante não cadastrato")
-    }
-    return estudante
+  async buscarEstudantePorEmail(email: string): Promise<Estudante> {
+    return await this.estudantesRepository.buscarPorEmail(email);
   }
-
 }

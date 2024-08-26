@@ -8,12 +8,10 @@ import { EstudanteInfraestruturaModule } from './estudantes/infraestrutura/estud
 import { CursosModule } from './cursos/application/cursos.module';
 import { CursoCoreModule } from './cursos/core/core.module';
 import { CursoInfraestruturaModule } from './cursos/infraestrutura/curso-infraestrutura';
-import { GestaoModule } from './gestao/application/gestao.module';
-
-
+import { GestaoCoreModule } from './gestao/core/gestao-core';
 
 @Module({
-  imports: [CursoCoreModule, EstudanteCoreModule, CursosModule, GestaoModule],
+  imports: [CursoCoreModule, EstudanteCoreModule,GestaoCoreModule],
   controllers: [AppController],
   providers: [AppService],
   exports:[]

@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { DynamicModule, Module, Type } from '@nestjs/common';
 import { GestaoService } from './gestao.service';
 import { GestaoController } from '../presenter/gestao.controller';
 
@@ -7,4 +7,11 @@ import { GestaoController } from '../presenter/gestao.controller';
   controllers: [GestaoController],
   providers: [GestaoService],
 })
-export class GestaoModule {}
+export class GestaoModule {
+  static comInfraestrutura(infrastructureModule: Type | DynamicModule) {
+    return {
+      module: GestaoModule,
+      imports: [infrastructureModule],
+    };
+  }
+}

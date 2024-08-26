@@ -8,7 +8,7 @@ export class GestaoController {
   constructor(private readonly gestaoService: GestaoService) {}
 
   @Post()
-  create(@Body() createGestaoDto: CreateGestaoDto) {
+  matricula(@Body() createGestaoDto: CreateGestaoDto) {
     return this.gestaoService.matricula(createGestaoDto.emailEstudante,createGestaoDto.tituloCurso);
   }
 }

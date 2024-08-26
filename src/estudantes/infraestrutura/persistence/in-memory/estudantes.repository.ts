@@ -21,12 +21,12 @@ export class InMemoryEstudanteRepository implements EstudanteRepository {
     return entities.map((item) => EstudanteMapper.paraDominio(item));
   }
 
-  async buscarPorEmail(email: string): Promise<Estudante> {
+  async buscarPorEmail(email: string): Promise<Estudante|null> {
     const entities = Array.from(this.estudantes.values());
     const estudanteEncontrado = entities.find((item) => item.email === email);
     
     if (!estudanteEncontrado) {
-      return null;
+      return
     }
     
     return EstudanteMapper.paraDominio(estudanteEncontrado);
