@@ -8,10 +8,9 @@ POST  http://localhost:3000/estudantes
 Content-Type: application/json
 
 {
-    "nome": "John",
-    "endereco": "Tao, tao distante",
-    "telefone": "81213168416",
-    "email": "alguma@gmail.com",
-    "idade": 16,
-    "xuxu": "xuxu"
+  "nome": "Cassia",
+  "endereco":"tao,tao,distante",
+  "telefone":"82564264268",
+  "email":"aquele@gmail.com",
+  "anoNascimento": 1993
 }
