@@ -1,16 +1,18 @@
 import {
   ConflictException,
   ForbiddenException,
+  Injectable,
 } from '@nestjs/common';
 import { Estudante } from '../domain/estudante';
 import { CreateEstudanteCommand } from './commands/create-estudante-command';
 import { EstudanteRepository } from './port/estudantes.repository';
 import { EstudanteFactory } from '../domain/factory/factory';
 
+@Injectable()
 export class EstudantesService {
   constructor(
     private readonly estudantesRepository: EstudanteRepository,
-    private readonly estudanteFactory: EstudanteFactory,
+    private estudanteFactory: EstudanteFactory,
   ) {}
 
   async cadastrar(
@@ -55,6 +57,6 @@ export class EstudantesService {
   }
 
   async buscarEstudantePorEmail(email: string): Promise<Estudante> {
-    return await this.estudantesRepository.buscarPorEmail(email);
+    return this.estudantesRepository.buscarPorEmail(email);
   }
 }

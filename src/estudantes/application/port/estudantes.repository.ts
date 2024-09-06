@@ -3,7 +3,7 @@ import { Estudante } from '../../../estudantes/domain/estudante';
 export abstract class EstudanteRepository {
   abstract salvar(estudante: Estudante): Promise<Estudante>;
   abstract listar(): Promise<Estudante[]>;
-  abstract buscarPorEmail(email: string): Promise<Estudante>;
+  abstract buscarPorEmail(email: string): Promise<Estudante|null>;
 }
 
 /* Isso é uma porta, ou seja, uma interface que define um contrato que deve ser implementado

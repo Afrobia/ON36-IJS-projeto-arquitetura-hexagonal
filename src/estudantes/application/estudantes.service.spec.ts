@@ -1,15 +1,25 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EstudantesService } from './estudantes.service';
 import { Estudante } from '../domain/estudante';
-import {
-  ConflictException,
-  ForbiddenException,
-} from '@nestjs/common';
+import { ConflictException, ForbiddenException } from '@nestjs/common';
 import { CreateEstudanteCommand } from './commands/create-estudante-command';
 import { EstudanteFactory } from '../domain/factory/factory';
+import { EstudanteRepository } from './port/estudantes.repository';
 
 describe('EstudantesService', () => {
   let service: EstudantesService;
+  let factory: EstudanteFactory;
+  let repository: EstudanteRepository;
+
+  const mockEstudanteRepository = {
+    salvar: jest.fn(),
+    buscarPorEmail: jest.fn(),
+    listar: jest.fn(),
+  };
+
+  const mockEstudanteFactory = {
+    criar: jest.fn(),
+  };
 
   const estudanteTest = {
     nome: 'João',
@@ -20,9 +30,21 @@ describe('EstudantesService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [EstudantesService, EstudanteFactory],
+      providers: [
+        EstudantesService,
+        {
+          provide: EstudanteRepository,
+          useValue: mockEstudanteRepository,
+        },
+        {
+          provide: EstudanteFactory,
+          useValue: mockEstudanteFactory,
+        },
+      ],
     }).compile();
 
+    factory = module.get<EstudanteFactory>(EstudanteFactory);
+    repository = module.get<EstudanteRepository>(EstudanteRepository);
     service = module.get<EstudantesService>(EstudantesService);
   });
 
@@ -30,7 +52,7 @@ describe('EstudantesService', () => {
     expect(service).toBeDefined();
   });
 
-/*   test('deve receber um CreateEstudante e criar um estudante', () => {
+  test('deve receber um CreateEstudante e criar um estudante', () => {
     const createEstudante: CreateEstudanteCommand = {
       nome: 'Baby',
       endereco: 'tão, tão distante',
@@ -38,6 +60,20 @@ describe('EstudantesService', () => {
       email: 'algumacois@gmail.com',
       anoNascimento: 2000,
     };
+    
+    let id = '123';
+    let cursos = [];
+
+    const estudante = new Estudante(
+      id,
+      createEstudante.nome,
+      createEstudante.endereco,
+      createEstudante.telefone,
+      createEstudante.email,
+      cursos,
+    );
+    mockEstudanteFactory.criar.mockReturnValue(estudante);
+    mockEstudanteRepository.salvar.mockResolvedValue(estudante);
 
     const retornado = service.cadastrar(createEstudante);
 
@@ -81,8 +117,8 @@ describe('EstudantesService', () => {
 
     if (retornado instanceof Estudante) {
       expect(() => service.cadastrar(createEstudante)).toThrow(
-        ConflictException
+        ConflictException,
       );
     }
-  }); */
+  });
 });
